@@ -7,8 +7,8 @@ function App() {
   const [datetime, setDatetime] = useState("");
   const [description, setDescription] = useState("");
 
-  function addNewTransaction(ev) {
-    ev.preventDefault();
+  function addNewTransaction(e) {
+    e.preventDefault();
     const url = process.env.REACT_APP_API_URL;
     console.log(url);
     // fetch('')
@@ -16,9 +16,7 @@ function App() {
 
   return (
     <main>
-      <h1>
-        $400<span>.00</span>
-      </h1>
+      <h1>$400<span>.00</span></h1>
       <form onSubmit={addNewTransaction}>
         <div className="basic">
           <input
@@ -33,12 +31,9 @@ function App() {
             onChange={(e) => setDatetime(e.target.value)}
           />
         </div>
-        <div
-          className="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        >
-          <input type="text" placeholder={"description"} />
+        <div className="description">
+          <input type="text" placeholder={"description"} value={description}
+          onChange={(e) => setDescription(e.target.value)} />
         </div>
         <button type="submit">Add New Transaction</button>
       </form>
