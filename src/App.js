@@ -1,24 +1,81 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [name, setName] = useState("");
+  const [datetime, setDatetime] = useState("");
+  const [description, setDescription] = useState("");
+
+  function addNewTransaction(ev) {
+    ev.preventDefault();
+    const url = process.env.REACT_APP_API_URL;
+    console.log(url);
+    // fetch('')
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <main>
+      <h1>
+        $400<span>.00</span>
+      </h1>
+      <form onSubmit={addNewTransaction}>
+        <div className="basic">
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder={"200 new Sony Bravia"}
+          />
+          <input
+            type="datetime-local"
+            value={datetime}
+            onChange={(e) => setDatetime(e.target.value)}
+          />
+        </div>
+        <div
+          className="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <input type="text" placeholder={"description"} />
+        </div>
+        <button type="submit">Add New Transaction</button>
+      </form>
+
+      <div className="transactions">
+        <div className="transaction">
+          <div className="left">
+            <div className="name">New Sony TV</div>
+            <div className="description">It was time for a new Television</div>
+          </div>
+          <div className="right">
+            <div className="price red">-$500</div>
+            <div className="datetime">2023-01-21 16:00</div>
+          </div>
+        </div>
+        <div className="transaction">
+          <div className="left">
+            <div className="name">New PlayStation</div>
+            <div className="description">It was time for a new Television</div>
+          </div>
+          <div className="right">
+            <div className="price green">+$400</div>
+            <div className="datetime">2023-01-21 16:00</div>
+          </div>
+        </div>
+        <div className="transaction">
+          <div className="left">
+            <div className="name">IPhone</div>
+            <div className="description">It was time for a new Television</div>
+          </div>
+          <div className="right">
+            <div className="price">-$900</div>
+            <div className="datetime">2023-01-21 16:00</div>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
 
