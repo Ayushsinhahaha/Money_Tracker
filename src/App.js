@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import "./App.css";
 
@@ -9,14 +8,24 @@ function App() {
 
   function addNewTransaction(e) {
     e.preventDefault();
-    const url = process.env.REACT_APP_API_URL;
-    console.log(url);
-    // fetch('')
+    const url = process.env.REACT_APP_API_URL + "/transaction";
+    fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({value: {name,description,datetime}
+      })
+    }).then((response) => {
+      response.json().then(json => {
+          console.log('result', json);
+      });
+    });
   }
 
   return (
     <main>
-      <h1>$400<span>.00</span></h1>
+      <h1>
+        $400<span>.00</span>
+      </h1>
       <form onSubmit={addNewTransaction}>
         <div className="basic">
           <input
@@ -32,8 +41,12 @@ function App() {
           />
         </div>
         <div className="description">
-          <input type="text" placeholder={"description"} value={description}
-          onChange={(e) => setDescription(e.target.value)} />
+          <input
+            type="text"
+            placeholder={"description"}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </div>
         <button type="submit">Add New Transaction</button>
       </form>
