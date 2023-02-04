@@ -8,15 +8,26 @@ function App() {
 
   function addNewTransaction(e) {
     e.preventDefault();
-    const url = process.env.REACT_APP_API_URL + "/transaction";
-    fetch(url, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({value: {name,description,datetime}
-      })
+    const url = process.env.REACT_APP_API_URL+ '/transaction';
+    const price = name.split(' ')[0];
+    fetch(url,{
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        value: {
+          price,
+          name: name.substring(price.length+1),
+          // name,
+          description,
+          datetime,
+        }
+      }),
     }).then((response) => {
-      response.json().then(json => {
-          console.log('result', json);
+      response.json().then((json) => {
+        setName("");
+        setDatetime("");
+        setDescription("");
+        // console.log('result',json);
       });
     });
   }
