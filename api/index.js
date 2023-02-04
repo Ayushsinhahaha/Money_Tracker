@@ -15,15 +15,19 @@ app.get("/api/test", (req, res) => {
 });
 
 app.post("/api/transaction", async (req, res) => {
-  await mongoose
-    .connect(process.env.MONGO_URL, {
-      useNewUrlParser: true,
-    })
-    .then(
-      () => {
-        console.log("Database connected successfully");
-      }
+
+  try {
+    // Connect to the MongoDB cluster
+     await mongoose.connect(
+      process.env.MONGO_URL,
+      { useNewUrlParser: true, useUnifiedTopology: true },
+      () => console.log(" Mongoose is connected")
     );
+
+  } catch (e) {
+    console.log("could not connect");
+  }
+
   const { name, description, datetime, price } = req.body;
   const transaction = await Transaction.create({
     price,
@@ -34,7 +38,15 @@ app.post("/api/transaction", async (req, res) => {
   res.json(transaction);
 });
 
+app.get('/api/transactions',async (req,res)=>{
+  await mongoose.connect(process.env.MONGO_URL);
+  const transactions=await Transaction.find();
+  res.json(transactions)
+})
+
+
 app.listen(4040);
 
 //dYmTQX6D9XFcbO1A
 // ayushsinhahaha database pwd
+

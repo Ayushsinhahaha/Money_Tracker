@@ -16,11 +16,12 @@ const TransactionSchema = new mongoose.Schema({
     required: true
   },
   datetime: {
-    type:Date,
+    type:String,
     required:true
   }
 });
 
 const TransactionModel=model('Transaction',TransactionSchema);
 
-module.export =TransactionModel;
+module.exports =TransactionModel;
+
